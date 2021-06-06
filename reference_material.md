@@ -1,0 +1,7 @@
+[SpringBoot实现前后端数据交互、json数据交互、Controller接收参数的几种常用方式](https://blog.csdn.net/qq_20957669/article/details/89227840?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control)
+[HTTP 请求参数之三种格式](https://segmentfault.com/a/1190000020665242)
+[mp自动填充](https://blog.csdn.net/qq_40241957/article/details/101772536)
+[前后端分离情况下如何获取登录用户信息](https://www.cnblogs.com/zhangshaolin/p/10249004.html)
+[@RequestBody的使用](https://blog.csdn.net/justry_deng/article/details/80972817)
+[jwt](https://learnku.com/articles/17883)
+[vue如何存储用户信息，如用户名，ID等？](https://segmentfault.com/q/1010000014540361/)
