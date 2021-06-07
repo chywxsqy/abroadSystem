@@ -6,17 +6,16 @@ SET NAMES utf8 ;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `id` int(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `account` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '账号',
+  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL UNIQUE COMMENT '昵称',
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
-  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '昵称',
   `addtime` datetime(0) NOT NULL COMMENT '注册时间',
-  `comment` tinyint(1) NOT NULL DEFAULT 1 COMMENT '为1可以发言，0被禁言',
-  `type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0-普通用户， 1-超管，2-版主',
+  `comment` tinyint(1) NOT NULL DEFAULT 0 COMMENT '为0可以发言，1被禁言',
+  `type` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0-普通用户， 1-超管，2-版主',
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0-未激活; 1-已激活;',
   `sex` tinyint(1) NOT NULL DEFAULT 0 COMMENT '性别：0保密；1男；2女',
   `qq` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci  COMMENT 'qq号',
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '邮箱',
-  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci  COMMENT '电话',
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL UNIQUE COMMENT '邮箱',
+  `phone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '电话',
   `activation_code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '激活码',
 
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'avatar.jpg' COMMENT '头像',
@@ -24,6 +23,7 @@ CREATE TABLE `user`  (
 --   `follows_num` int(8) NOT NULL DEFAULT 0 COMMENT '关注数量',
 --   `fans_num` int(8) NOT NULL DEFAULT 0 COMMENT '粉丝数量',
 
+  `college` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '学校',
   `gpa` double(4, 2) NOT NULL DEFAULT 0.00 COMMENT 'gpa',
   `sat` int(8) NOT NULL DEFAULT 0 COMMENT 'sat',
   `ielts` double(6, 2) NOT NULL DEFAULT 0.00 COMMENT '雅思',
