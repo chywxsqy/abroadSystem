@@ -75,7 +75,7 @@ public class UserServiceTests {
 //            System.out.println("token无效！");
 //        }
 //        token过期也会抛异常
-//        Thread.sleep(5000);
+        Thread.sleep(5000);
         DecodedJWT decodedToken = JWTUtil.getDecodedToken(token);
         System.out.println(decodedToken.getClaim("userId").asString());
         System.out.println(decodedToken.getClaim("email").asString());

@@ -10,17 +10,19 @@ import com.ustc.project4.util.Project4Util;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
-public class UserService implements Project4Constant {
+public class UserService implements Project4Constant, UserDetailsService {
 
     @Resource
     private UserMapper userMapper;
@@ -36,6 +38,16 @@ public class UserService implements Project4Constant {
 
     @Autowired
     private TemplateEngine templateEngine;
+
+    public User findUserById(int id) {
+        return userMapper.selectById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userMapper.selectOne(new QueryWrapper<User>().eq("email", email));
+    }
+
 
     public Map<String,Object> register(@NonNull User user) {
         Map<String,Object> map = new HashMap<>();
@@ -77,7 +89,7 @@ public class UserService implements Project4Constant {
         user.setPassword(Project4Util.md5(user.getPassword()));
         user.setAddtime(new Date());
         user.setActivationCode(Project4Util.generateUUID());
-        user.setAvatar(domain + "/img/th.jpg");
+        user.setAvatar(domain + contextPath + "/img/th.jpg");
 
         userMapper.insert(user);
 

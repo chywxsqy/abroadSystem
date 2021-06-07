@@ -1,17 +1,19 @@
 package com.ustc.project4.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 
-//自动填充可参考
 @Data
-public class User {
+public class User implements UserDetails {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String username;
@@ -33,4 +35,47 @@ public class User {
     private Integer sat;
     private Double ielts;
     private Double toefl;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                switch (type) {
+                    case 0:
+                        return "user";
+                    case 1:
+                        return "admin";
+                    default:
+                        return "moderator";
+                }
+            }
+        });
+        return list;
+    }
+
+    //账号未过期
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    //账号未锁定
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    //凭证未过期
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    //账号可用
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
