@@ -1,4 +1,4 @@
-package Config;
+package com.ustc.project4.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("com.ustc.codegenerate.mapper.CollegeMapper")
+@MapperScan("com.ustc.project4.mapper")
 public class PageConfig {
     @Bean
     public MybatisPlusInterceptor innerInterceptor(){
