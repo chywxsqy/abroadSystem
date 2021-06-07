@@ -5,3 +5,5 @@
 [@RequestBody的使用](https://blog.csdn.net/justry_deng/article/details/80972817)
 [jwt](https://learnku.com/articles/17883)
 [vue如何存储用户信息，如用户名，ID等？](https://segmentfault.com/q/1010000014540361/)
+[spring security 之通过 token 验证用户保持登录状态](https://www.cnblogs.com/chenweichu/articles/12147450.html)
+[logout和权限信息的保存和session](https://www.cnblogs.com/longfurcat/p/10293819.html)

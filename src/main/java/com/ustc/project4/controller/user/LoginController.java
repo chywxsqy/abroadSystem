@@ -10,6 +10,10 @@ import com.ustc.project4.util.Project4Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,7 +94,7 @@ public class LoginController implements Project4Constant {
         String email = params.get("email");
         String password = params.get("password");
         String code = params.get("code");
-        boolean rememberme = params.get("rememberme").equals("true");
+        boolean rememberme = params.get("rememberme").equals("false");
 
         //验证码
         String kaptcha = (String) session.getAttribute("kaptcha");
@@ -108,14 +112,29 @@ public class LoginController implements Project4Constant {
 
             User loginUser = (User)map.get("loginUser");
             Map<String, String> payload = new HashMap<>();
-            payload.put("userId", loginUser.getId().toString());
+            payload.put("id", loginUser.getId().toString());
             String token = JWTUtil.getToken(payload, expiredSeconds);
 
             map = new HashMap<>();
             map.put("token", token);
+
+            //login时就先存一下认证信息
+//            Authentication authentication = new UsernamePasswordAuthenticationToken(loginUser, loginUser.getPassword(),
+//                    loginUser.getAuthorities());
+//            SecurityContextHolder.setContext(new SecurityContextImpl(authentication));
+
             return Project4Util.getJSONString(CODE_SUCCESS, "成功登录！", map);
         } else {
             return Project4Util.getJSONString(CODE_FAILURE, null, map);
         }
+    }
+
+    @GetMapping("/logout")
+    @ResponseBody
+    public String logout(HttpSession session) {
+        session.removeAttribute("SPRING_SECURITY_CONTEXT");
+        SecurityContextHolder.clearContext();
+
+        return Project4Util.getJSONString(CODE_SUCCESS, null, null);
     }
 }
