@@ -70,7 +70,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Proj
         //授权
         http.authorizeRequests()
                 .antMatchers(
-                        "/register"
+                        "/logout",
+                        "/user/myInfo",
+                        "/user/avatar",
+                        "/user/password",
+                        "/user/passwordS"
                 )
                 .hasAnyAuthority(
                         "user",

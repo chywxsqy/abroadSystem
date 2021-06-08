@@ -3,7 +3,9 @@
 [mp自动填充](https://blog.csdn.net/qq_40241957/article/details/101772536)
 [前后端分离情况下如何获取登录用户信息](https://www.cnblogs.com/zhangshaolin/p/10249004.html)
 [@RequestBody的使用](https://blog.csdn.net/justry_deng/article/details/80972817)
+注意：Content-Type为json时只能用@RequesBody,@RequesParam不能
 [jwt](https://learnku.com/articles/17883)
 [vue如何存储用户信息，如用户名，ID等？](https://segmentfault.com/q/1010000014540361/)
 [spring security 之通过 token 验证用户保持登录状态](https://www.cnblogs.com/chenweichu/articles/12147450.html)
 [logout和权限信息的保存和session](https://www.cnblogs.com/longfurcat/p/10293819.html)
+[mysql区分和不区分大小写的设置方式](https://blog.csdn.net/weixin_40805079/article/details/85230529)

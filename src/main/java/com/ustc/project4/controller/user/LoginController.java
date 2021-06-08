@@ -7,13 +7,12 @@ import com.ustc.project4.service.UserService;
 import com.ustc.project4.util.JWTUtil;
 import com.ustc.project4.util.Project4Constant;
 import com.ustc.project4.util.Project4Util;
+import com.ustc.project4.util.RSAUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,12 +31,28 @@ public class LoginController implements Project4Constant {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    UserService userService;
+    private Producer kaptchaProducer;
 
-    @Autowired
-    Producer kaptchaProducer;
+    @Value("${rsa.privatekey}")
+    private String privateKey;
+
+    //Content-Type:application/x-www-form-urlencoded
+    @PostMapping("/testRSA")
+    @ResponseBody
+    public String test(@RequestParam("password") String password) throws Exception {
+        System.out.println(password);
+        byte[] bytes = RSAUtil.decryptByPrivateKey(password, privateKey);
+        return Project4Util.getJSONString(CODE_SUCCESS, "解密成功！", "uncrypted",new String(bytes));
+    }
+
+    @GetMapping("/testdemo")
+    public String testdemo2() {
+        return "/demo";
+    }
 
     @PostMapping("/register")
     @ResponseBody
@@ -48,6 +63,34 @@ public class LoginController implements Project4Constant {
             return Project4Util.getJSONString(CODE_SUCCESS, msg, null);
         } else {
             return Project4Util.getJSONString(CODE_FAILURE, null, map);
+        }
+    }
+
+//    @PostMapping("/registerS")
+//    @ResponseBody
+//    public String registerS(@RequestParam("email") String email, @RequestParam("password") String password,
+//                            @RequestParam("username") String username) {
+//        try {
+//            password = new String(RSAUtil.decryptByPrivateKey(password, privateKey));
+//            User user = new User();
+//            user.setEmail(email);
+//            user.setPassword(password);
+//            user.setUsername(username);
+//            return register(user);
+//        } catch (Exception e) {
+//            return Project4Util.getJSONString(CODE_SERVER_FAILURE, "服务器解密失败，请重试！", null);
+//        }
+//    }
+
+    @PostMapping("/registerS")
+    @ResponseBody
+    public String hello(@RequestBody User user) {
+        try {
+            String password = new String(RSAUtil.decryptByPrivateKey(user.getPassword(), privateKey));
+            user.setPassword(password);
+            return register(user);
+        } catch (Exception e) {
+            return Project4Util.getJSONString(CODE_SERVER_FAILURE, "服务器解密失败，请重试！", null);
         }
     }
 
@@ -126,6 +169,19 @@ public class LoginController implements Project4Constant {
             return Project4Util.getJSONString(CODE_SUCCESS, "成功登录！", map);
         } else {
             return Project4Util.getJSONString(CODE_FAILURE, null, map);
+        }
+    }
+
+    @PostMapping("/loginS")
+    @ResponseBody
+    public String loginS(@RequestBody Map<String, String> params, HttpSession session) {
+        try{
+            String password = params.get("password");
+            password = new String(RSAUtil.decryptByPrivateKey(password, privateKey));
+            params.put("password", password);
+            return login(params, session);
+        } catch (Exception e) {
+            return Project4Util.getJSONString(CODE_SERVER_FAILURE, "服务器解密失败，请重试！", null);
         }
     }
 

@@ -23,6 +23,11 @@ public interface Project4Constant {
     int CODE_DENIED = 3;
 
     /**
+     * code-服务器错误
+     */
+    int CODE_SERVER_FAILURE = 4;
+
+    /**
      * 激活-成功
      */
     int ACTIVATION_SUCCESS = 0;
@@ -40,7 +45,7 @@ public interface Project4Constant {
     /**
      * 默认登录时间-1天
      */
-    int DEFAULT_EXPIRED_SECONDS = 20;
+    int DEFAULT_EXPIRED_SECONDS = 3600 * 24;
 
     /**
      * “记住我”时的登录时间—30天

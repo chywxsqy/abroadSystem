@@ -41,4 +41,20 @@ public class Project4Util {
         return jsonObject.toJSONString();
     }
 
+    /**
+     * 生成json数据
+     * @param code
+     * @param msg
+     * @param key
+     * @param value
+     * @return
+     */
+    public static String getJSONString(int code, String msg, String key, Object value) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("code", code);
+        jsonObject.put("msg", msg);
+        jsonObject.put(key, value);
+        return jsonObject.toJSONString();
+    }
+
 }

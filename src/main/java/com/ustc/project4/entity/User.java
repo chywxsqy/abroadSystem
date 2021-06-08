@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private Double gpa;
     private Integer sat;
     private Double ielts;
-    private Double toefl;
+    private Integer toefl;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

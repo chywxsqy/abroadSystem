@@ -27,7 +27,7 @@ CREATE TABLE `user`  (
   `gpa` double(4, 2) NOT NULL DEFAULT 0.00 COMMENT 'gpa',
   `sat` int(8) NOT NULL DEFAULT 0 COMMENT 'sat',
   `ielts` double(6, 2) NOT NULL DEFAULT 0.00 COMMENT '雅思',
-  `toefl` double(6, 2) NOT NULL DEFAULT 0.00 COMMENT '托福',
+  `toefl` int(8) NOT NULL DEFAULT 0 COMMENT '托福',
 --   `recommend` json NOT NULL COMMENT '意向院校，里面是一个json数组，长度为150，下标为学校的qs排名',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;

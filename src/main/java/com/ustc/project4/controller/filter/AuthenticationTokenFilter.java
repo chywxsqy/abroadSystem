@@ -50,7 +50,6 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
 
         if(hostHolder.getUser()==null) {
-            request.getSession().removeAttribute("SPRING_SECURITY_CONTEXT");
             SecurityContextHolder.clearContext();
         }
         hostHolder.clear();

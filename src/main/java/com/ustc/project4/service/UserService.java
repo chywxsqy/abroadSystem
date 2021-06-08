@@ -10,7 +10,6 @@ import com.ustc.project4.util.Project4Util;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,8 +32,18 @@ public class UserService implements Project4Constant, UserDetailsService {
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
+    @Value("${aliyun.oss.file.endpoint}")
+    private String endpoint;
+
+    @Value("${aliyun.oss.file.bucket.name}")
+    private String bucket;
+
+    @Value("${aliyun.oss.file.bucket.dir}")
+    private String dirName;
+
     @Autowired
     private MailClient mailClient;
+
 
     @Autowired
     private TemplateEngine templateEngine;
@@ -89,7 +98,7 @@ public class UserService implements Project4Constant, UserDetailsService {
         user.setPassword(Project4Util.md5(user.getPassword()));
         user.setAddtime(new Date());
         user.setActivationCode(Project4Util.generateUUID());
-        user.setAvatar(domain + contextPath + "/img/th.jpg");
+        user.setAvatar("http://" + bucket + "." + endpoint + "/" + dirName + "/th.jpg");        //服务器实际存放头像位置;
 
         userMapper.insert(user);
 
@@ -154,5 +163,22 @@ public class UserService implements Project4Constant, UserDetailsService {
         //登录检测通过，返回空map
         map.put("loginUser", user);
         return map;
+    }
+
+    public int updateInfo(int id, User user) {
+        user.setId(id);
+        return userMapper.updateById(user);
+    }
+
+    public int updateHeader(int id, String headerUrl) {
+        User user = new User();
+        user.setAvatar(headerUrl);
+        return updateInfo(id, user);
+    }
+
+    public int updatePassword(int id, String password) {
+        User user = new User();
+        user.setPassword(Project4Util.md5(password));
+        return updateInfo(id, user);
     }
 }
