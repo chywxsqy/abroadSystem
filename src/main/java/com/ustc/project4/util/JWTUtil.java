@@ -39,6 +39,6 @@ public class JWTUtil {
      * @return
      */
     public static DecodedJWT getDecodedToken(String token){
-        return JWT.require(Algorithm.HMAC256(TOKEN)).build().verify(token);
+            return JWT.require(Algorithm.HMAC256(TOKEN)).build().verify(token);
     }
 }

@@ -9,3 +9,4 @@
 [spring security 之通过 token 验证用户保持登录状态](https://www.cnblogs.com/chenweichu/articles/12147450.html)
 [logout和权限信息的保存和session](https://www.cnblogs.com/longfurcat/p/10293819.html)
 [mysql区分和不区分大小写的设置方式](https://blog.csdn.net/weixin_40805079/article/details/85230529)
+[前后端交互乱码](https://www.cnblogs.com/callmegaga/p/9640087.html)

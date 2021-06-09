@@ -31,6 +31,11 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
+//        System.out.println("st");
+//        System.out.println(request.getCharacterEncoding());
+//        System.out.println(response.getCharacterEncoding());
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("application/json;charset=utf-8");
         SecurityContextHolder.clearContext();
         String token = request.getHeader("token");
         try{
@@ -53,5 +58,9 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
             SecurityContextHolder.clearContext();
         }
         hostHolder.clear();
+
+//        System.out.println("go");
+//        System.out.println(response.getCharacterEncoding());
+//        response.setCharacterEncoding("utf-8");
     }
 }

@@ -89,7 +89,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Proj
                 .authenticationEntryPoint(new AuthenticationEntryPoint() {
                     @Override
                     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
-                        response.setCharacterEncoding("utf-8");
+//                        System.out.println("config");
+//                        System.out.println(request.getCharacterEncoding());
+//                        System.out.println(response.getCharacterEncoding());
+//                        response.setCharacterEncoding("utf-8");
                         PrintWriter writer = response.getWriter();
                         writer.write(Project4Util.getJSONString(CODE_NO_LOGIN, "你还未登录！", null));
                     }
@@ -98,7 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Proj
                 .accessDeniedHandler(new AccessDeniedHandler() {
                     @Override
                     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
-                        response.setCharacterEncoding("utf-8");
+//                        response.setCharacterEncoding("utf-8");
                         PrintWriter writer = response.getWriter();
                         writer.write(Project4Util.getJSONString(CODE_DENIED, "权限不足！", null));
                     }
