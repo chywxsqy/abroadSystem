@@ -41,7 +41,7 @@ public class LoginController implements Project4Constant {
     private String privateKey;
 
     //Content-Type:application/x-www-form-urlencoded
-    @PostMapping("/testRSA")
+    @PostMapping(value = "/testRSA", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String test(@RequestParam("password") String password) throws Exception {
         System.out.println(password);
@@ -54,7 +54,7 @@ public class LoginController implements Project4Constant {
         return "/demo";
     }
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String register(@RequestBody User user){
         Map<String, Object> map = userService.register(user);
@@ -82,7 +82,7 @@ public class LoginController implements Project4Constant {
 //        }
 //    }
 
-    @PostMapping("/registerS")
+    @PostMapping(value = "/registerS", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String hello(@RequestBody User user) {
         try {
@@ -94,7 +94,7 @@ public class LoginController implements Project4Constant {
         }
     }
 
-    @GetMapping("/activation/{userId}/{activationCode}")
+    @GetMapping(value = "/activation/{userId}/{activationCode}", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String activation(@PathVariable("userId") int userId, @PathVariable("activationCode") String activationCode) {
         int result = userService.activation(userId, activationCode);
@@ -131,9 +131,10 @@ public class LoginController implements Project4Constant {
         }
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String login(@RequestBody Map<String, String> params, HttpSession session) {
+    public String login(@RequestBody Map<String, String> params, HttpSession session,HttpServletResponse response) {
+        response.setContentType("application/json;charset=utf-8");
         String email = params.get("email");
         String password = params.get("password");
         String code = params.get("code");
@@ -172,20 +173,20 @@ public class LoginController implements Project4Constant {
         }
     }
 
-    @PostMapping("/loginS")
+    @PostMapping(value = "/loginS", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String loginS(@RequestBody Map<String, String> params, HttpSession session) {
+    public String loginS(@RequestBody Map<String, String> params, HttpSession session, HttpServletResponse response) {
         try{
             String password = params.get("password");
             password = new String(RSAUtil.decryptByPrivateKey(password, privateKey));
             params.put("password", password);
-            return login(params, session);
+            return login(params, session,response);
         } catch (Exception e) {
             return Project4Util.getJSONString(CODE_SERVER_FAILURE, "服务器解密失败，请重试！", null);
         }
     }
 
-    @GetMapping("/logout")
+    @GetMapping(value = "/logout", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String logout(HttpSession session) {
         session.removeAttribute("SPRING_SECURITY_CONTEXT");

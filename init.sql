@@ -78,3 +78,51 @@ CREATE TABLE `college`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- 学校link
+
+
+
+-- 论坛相关
+
+
+DROP TABLE IF EXISTS `discuss_post`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `discuss_post` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(8)  NOT NULL COMMENT '以后再加外键;',
+  `college_id` int(8) NOT NULL DEFAULT 0 COMMENT '以后再加外键,0表示跟学校无关的帖子;',
+--   `major_id` int(8) UNSIGNED NOT NULL,COMMENT '以后再加外键;',
+  `title` varchar(100) DEFAULT NULL,
+  `content` text,
+  `type` int(11) NOT NULL DEFAULT 0 COMMENT '0-普通; 1-置顶;',
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT '0-正常; 1-精华; 2-拉黑;',
+  `create_time` timestamp NULL DEFAULT NULL,
+  `comment_count` int(11) NOT NULL DEFAULT 0,
+  `score` double NOT NULL DEFAULT 0.0,
+  PRIMARY KEY (`id`),
+  KEY `index_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `comment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `entity_type` int(11) DEFAULT NULL,
+  `entity_id` int(11) DEFAULT NULL,
+  `target_id` int(11) DEFAULT NULL,
+  `content` text,
+  `status` int(11) DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_user_id` (`user_id`) /*!80000 INVISIBLE */,
+  KEY `index_entity_id` (`entity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+insert  into `user`(`id`,`username`,`password`,`addtime`,`comment`,`type`,`status`,`sex`,`qq`,`email`,`phone`,`activation_code`,`avatar`,`college`,`gpa`,`sat`,`ielts`,`toefl`) values (18,'crea','202cb962ac59075b964b07152d234b70','2021-06-08 09:24:10',0,1,1,1,'45557891','Lanjun1998@163.com','1839999123123','ff65951e9fb9422bafe009a185509645','http://creasbucket.oss-cn-shanghai.aliyuncs.com/project4_header/th.jpg',NULL,3.99,1500,6.50,110);
+
+insert  into `discuss_post`(`id`,`user_id`,`college_id`,`title`,`content`,`type`,`status`,`create_time`,`comment_count`,`score`) values (1,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-08 18:09:35',0,0),(2,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 07:54:12',0,0),(3,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:17',0,0),(4,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(5,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(6,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(7,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(8,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(9,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(10,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(11,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(12,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(13,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(14,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(15,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(16,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(17,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(18,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(19,18,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(20,19,0,'测试帖子hello','第一条帖子',1,0,'2021-06-09 08:30:18',0,0),(21,19,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0),(23,18,0,'测试发帖','这是一条测试发帖啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊阿瓦我',0,0,'2021-06-09 09:25:07',0,0),(25,19,0,'测试帖子hello','第一条帖子',0,0,'2021-06-09 08:30:18',0,0);
+

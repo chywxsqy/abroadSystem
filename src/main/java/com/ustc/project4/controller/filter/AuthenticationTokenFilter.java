@@ -35,13 +35,12 @@ public class AuthenticationTokenFilter extends OncePerRequestFilter {
 //        System.out.println(request.getCharacterEncoding());
 //        System.out.println(response.getCharacterEncoding());
         request.setCharacterEncoding("utf-8");
-        response.setContentType("application/json;charset=utf-8");
         SecurityContextHolder.clearContext();
         String token = request.getHeader("token");
         try{
             DecodedJWT decodedToken = JWTUtil.getDecodedToken(token);
             int id = Integer.parseInt(decodedToken.getClaim("id").asString());
-            User loginUser = userService.findUserById(id);
+            User loginUser = userService.getUserById(id);
             hostHolder.setUser(loginUser);
 
             //构建用户认证结果，并存入SecurityContext，以便于Security获取

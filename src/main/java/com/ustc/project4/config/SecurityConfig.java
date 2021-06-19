@@ -74,7 +74,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Proj
                         "/user/myInfo",
                         "/user/avatar",
                         "/user/password",
-                        "/user/passwordS"
+                        "/user/passwordS",
+                        "/discussPost",
+                        "comment"
                 )
                 .hasAnyAuthority(
                         "user",
@@ -93,6 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Proj
 //                        System.out.println(request.getCharacterEncoding());
 //                        System.out.println(response.getCharacterEncoding());
 //                        response.setCharacterEncoding("utf-8");
+                        response.setContentType("application/json;charset=utf-8");
                         PrintWriter writer = response.getWriter();
                         writer.write(Project4Util.getJSONString(CODE_NO_LOGIN, "你还未登录！", null));
                     }
@@ -102,6 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Proj
                     @Override
                     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
 //                        response.setCharacterEncoding("utf-8");
+                        response.setContentType("application/json;charset=utf-8");
                         PrintWriter writer = response.getWriter();
                         writer.write(Project4Util.getJSONString(CODE_DENIED, "权限不足！", null));
                     }

@@ -51,7 +51,7 @@ public class UserController implements Project4Constant {
     @Value("${rsa.privatekey}")
     private String privateKey;
 
-    @GetMapping("/myInfo")
+    @GetMapping(value = "/myInfo", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String getUserInfo() {
         User user = hostHolder.getUser();
@@ -59,7 +59,7 @@ public class UserController implements Project4Constant {
         return Project4Util.getJSONString(0, null, "loginUser", user);
     }
 
-    @PostMapping("/myInfo")
+    @PutMapping(value = "/myInfo", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String setUserInfo(@RequestBody User user) {
         int id = hostHolder.getUser().getId();
@@ -72,7 +72,7 @@ public class UserController implements Project4Constant {
      * @param headerimage
      * @return
      */
-    @PostMapping("/avatar")
+    @PutMapping(value = "/avatar", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String uploadHeaderOss(@RequestParam("file") MultipartFile headerimage) {
         if(headerimage == null) {
@@ -112,7 +112,7 @@ public class UserController implements Project4Constant {
         return Project4Util.getJSONString(CODE_SUCCESS, "上传头像成功！", null);
     }
 
-    @PostMapping("/password")
+    @PutMapping(value = "/password", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String changePassword(@RequestBody Map<String, String> params) {
         String oldPassword = params.get("oldPassword");
@@ -126,7 +126,7 @@ public class UserController implements Project4Constant {
         return Project4Util.getJSONString(CODE_SUCCESS, "密码修改成功！", null);
     }
 
-    @PostMapping("/passwordS")
+    @PutMapping(value = "/passwordS", produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String changePasswordS(@RequestBody Map<String, String> params) {
         try {
