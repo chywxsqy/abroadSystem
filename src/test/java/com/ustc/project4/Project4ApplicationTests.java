@@ -32,7 +32,7 @@ class Project4ApplicationTests {
 
     @Test
     public void testDao(){
-        List<College> collegeList = collegeService.selectByName("人");
+        List<College> collegeList = collegeService.selectByName("人",1,10);
         collegeList.forEach(System.out::println);
     }
 

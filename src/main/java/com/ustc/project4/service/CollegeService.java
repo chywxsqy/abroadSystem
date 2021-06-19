@@ -33,8 +33,8 @@ public class CollegeService {
 
 
     //根据QS排名分页查询
-    public List<College> selectByQsRank(int qsLow, int qsHigh) {
-        Page<College> page = new Page<>(1,10);
+    public List<College> selectByQsRank(int qsLow, int qsHigh,int currentNum,int pageSize) {
+        Page<College> page = new Page<>(currentNum,pageSize);
         Page<College> qs_rank = collegeMapper.selectPage(page, new QueryWrapper<College>().between("qs_rank", qsLow, qsHigh));
         List<College> qs_rankRecords = qs_rank.getRecords();
         return qs_rankRecords;
@@ -42,8 +42,8 @@ public class CollegeService {
 
 
     //根据学校名称模糊查询
-    public List<College> selectByName(String collegeName) {
-        Page<College> page = new Page<>(1,10);
+    public List<College> selectByName(String collegeName,int currentNum,int pageSize) {
+        Page<College> page = new Page<>(currentNum,pageSize);
         Page<College> college_name = collegeMapper.selectPage(page, new QueryWrapper<College>().like("college_name", collegeName));
         List<College> collegeNameRecords = college_name.getRecords();
         return collegeNameRecords;
