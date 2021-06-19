@@ -48,7 +48,7 @@ public class UserService implements Project4Constant, UserDetailsService {
     @Autowired
     private TemplateEngine templateEngine;
 
-    public User findUserById(int id) {
+    public User getUserById(int id) {
         return userMapper.selectById(id);
     }
 

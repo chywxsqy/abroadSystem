@@ -53,4 +53,20 @@ public interface Project4Constant {
     int REMEMBERME_EXPIRED_SECONDS = 3600 * 24 * 30;
 
 
+    /**
+     * 帖子列表显示的帖子数
+     */
+    int DISCUSSPOSTS_PER_PAGE = 10;
+
+    /**
+     * 实体类型-帖子
+     */
+    int ENTITY_TYPE_POST = 0;
+
+    /**
+     * 实体类型-评论
+     */
+    int ENTITY_TYPE_COMMENT = 1;
+
+
 }

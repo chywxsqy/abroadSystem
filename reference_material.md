@@ -10,3 +10,8 @@
 [logout和权限信息的保存和session](https://www.cnblogs.com/longfurcat/p/10293819.html)
 [mysql区分和不区分大小写的设置方式](https://blog.csdn.net/weixin_40805079/article/details/85230529)
 [前后端交互乱码](https://www.cnblogs.com/callmegaga/p/9640087.html)
+
+过滤器中在dofilter后设置response的ContentType无效（controller那会调用Writer）。
+在controller更改的response的ContentType会在后面被改掉。
+唯一解决方法：
+[Spring boot返回JSON类型响应及Content-Type设置](https://www.cnblogs.com/yoyotl/p/7026566.html)
