@@ -10,18 +10,11 @@ public class Project4Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Project4Application.class, args);
-        if (args != null) {
-            for (String arg : args) {
-                System.out.println("args = " + arg);
-            }
-        }
-        System.out.println("aaaaa");
-//        System.out.println();
+
+
     }
 
-    String s = "aaa" +
-            "bbb" +
-            "ccc";
+
 
 
 
